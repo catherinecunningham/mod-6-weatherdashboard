@@ -17,13 +17,17 @@
 </section>
 
 <!--Search for a City-->
-<section class="container">
-    <h2 class="city-title" id="city-search">Search for a City:</h2>
-    <form>
-        <input type="text" id="city-input" name="city-input">
-        <input type="submit" id="search-Btn" value = "Search">
-    </form>
-</section>
+<div class="container">
+    <div class="col">
+        <header>
+            <h2 class="city-title" id="city-search">Search for a City:</h2>
+            <form>
+                <input type="text" id="city-input" name="city-input" placeholder="City Name">
+                <button class="btn" id="search-btn" type="submit">Search</button>
+            </form>
+        </header>
+    </div>
+</div>
 
 <!--Chosen City Display-->
 <section class="container">
@@ -39,43 +43,55 @@
 </section>
 
 <!--5 Day Forecast-->
-<section class = container>
+<div>
+    <section class="container">
     <h3 class="forecast-title" id="forecast-title">5-Day Forecast</h3>
-    <div class="m-5 row justify-content-around">
-        <div class="col">
+    <div class="container">
+        <div>
+            <div class="col-sm">
             <h4 id="day-1"></h4>
             <ul class="weather-data">
-                <li id="temp-input"></li>
-                <li id="wind-input"></li>
-                <li id="humidity-input"></li>
+                <li id="temp-input">1</li>
+                <li id="wind-input">2</li>
+                <li id="humidity-input">3</li>
             </ul>
+            </div>
+            <div class="col-sm">
             <h4 id="day-2"></h4>
             <ul class="weather-data">
-                <li id="temp-input"></li>
-                <li id="wind-input"></li>
-                <li id="humidity-input"></li>
+                <li id="temp-input">1</li>
+                <li id="wind-input">2</li>
+                <li id="humidity-input">3</li>
             </ul>
+            </div>
+            <div class="col-sm">
             <h4 id="day-3"></h4>
             <ul class="weather-data">
-                <li id="temp-input"></li>
-                <li id="wind-input"></li>
-                <li id="humidity-input"></li>
+                <li id="temp-input">1</li>
+                <li id="wind-input">2</li>
+                <li id="humidity-input">3</li>
             </ul>
+            </div>
+            <div class="col-sm">
             <h4 id="day-4"></h4>
             <ul class="weather-data">
-                <li id="temp-input"></li>
-                <li id="wind-input"></li>
-                <li id="humidity-input"></li>
+                <li id="temp-input">1</li>
+                <li id="wind-input">2</li>
+                <li id="humidity-input">3</li>
             </ul>
+            </div>
+            <div class="col-sm">
             <h4 id="day-5"></h4>
             <ul class="weather-data">
-                <li id="temp-input"></li>
-                <li id="wind-input"></li>
-                <li id="humidity-input"></li>
+                <li id="temp-input">1</li>
+                <li id="wind-input">2</li>
+                <li id="humidity-input">3</li>
             </ul>
+            </div>
         </div>
     </div>
 </section>
+</div>
 
 <script src="./assets/js/script.js"></script>
 </body>
