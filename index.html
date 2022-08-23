@@ -16,11 +16,12 @@
     <h1 class="main-title">Weather Dashboard</h1>
 </section>
 
-<!--Search for a City-->
+<!--Container for page content-->
 <div class="container">
+    <!--Search for a City-->
     <div class="col">
         <header>
-            <h2 class="city-title" id="city-search">Search for a City:</h2>
+            <h2 class="city-title">Search for a City:</h2>
             <form>
                 <input type="text" id="city-input" name="city-input" placeholder="City Name">
                 <button class="btn" id="search-btn" type="submit">Search</button>
@@ -28,23 +29,26 @@
         </header>
     </div>
 
-<!--Chosen City Display-->
-    <section class="container">
-        <h2 class="city-title" id="current-city"></h2>
-        <div id="city-weather">
-            <ul class="weather-data">
-                <li id="temp-input"></li>
-                <li id="wind-input"></li>
-                <li id="humidity-input"></li>
-                <li id="UV-input"></li>
-            </ul>
+    <!--Chosen City Display-->
+    <div class="col">
+        <div class="row">
+            <section>
+                <h2 class="city-title" id="current-city"></h2>
+                <div id="city-weather">
+                    <ul class="weather-data">
+                        <li id="temp-input"></li>
+                        <li id="wind-input"></li>
+                        <li id="humidity-input"></li>
+                        <li id="UV-input"></li>
+                    </ul>
+                </div>
+            </section>
         </div>
-    </section>
 
-<!--5 Day Forecast Section-->
-    <section class="container">
-        <h3 class="forecast-title" id="forecast-title">5-Day Forecast</h3>
-        <!--Forecast Cards-->
+    <!--5 Day Forecast Section-->
+        <section>
+            <h3 class="forecast-title" id="forecast-title">5-Day Forecast</h3>
+            <!--Forecast Cards-->
             <div class="row">
                 <div class="col">
                     <h4 id="day-1">Day 1</h4>
@@ -90,7 +94,6 @@
                         <li id="humidity-input">3</li>
                     </ul>
                 </div>
-        
     </section>
 <!--End Container Div-->
 </div>
