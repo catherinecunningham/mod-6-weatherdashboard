@@ -56,23 +56,20 @@ searchBtn.addEventListener('click', function(e) {
     .then((res) => res.json())
     .then((data) => {
         console.log(data)
-        //temp, wind, humidity, city name
+        //temp, wind, humidity, city name for chosen city
         day.textContent = moment().format('l')
         currentCity.textContent = data.name 
         temp.textContent = "Temp: " + data.main.temp + degree
         wind.textContent = "Wind Speed: " + data.wind.speed + mph
         humidity.textContent = "Humidity: " + data.main.humidity + percent
 
-       
-
         fetch("https://api.openweathermap.org/data/2.5/uvi?lat="+ data.coord.lat +"&lon="+ data.coord.lon +"&exclude="+exclusions+"&appid=b265093aa7a118e11c4591d956102e2c")
         .then((res) => res.json())
         .then((data) => {
             console.log(data)
-        //UV index
+        //UV index for chosen city
         UV.textContent = "UV Index: " + data.value
         })
-        //current date - convert from unix timestamp
 
         fetch("https://api.openweathermap.org/data/2.5/forecast?lat="+ data.coord.lat +"&lon="+ data.coord.lon +"&exclude="+exclusions+"&appid=b265093aa7a118e11c4591d956102e2c&units=imperial")
         .then((res) => res.json())
