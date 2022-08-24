@@ -1,22 +1,52 @@
 // GLOBAL VARIABLES
-var tempInput = document.getElementById("temp-input")
-var windInput = document.getElementById("wind-input")
-var humidityInput = document.getElementById("humidity-input")
-var UVInput = document.getElementById("UV-input")
 var currentCity = document.getElementById("current-city")
 var searchBtn = document.getElementById("search-btn")
+var degree = "°F"
+var temp = document.getElementById("temp-input")
+var wind = document.getElementById("wind-input")
+var humidity = document.getElementById("humidity-input")
+var UV = document.getElementById("UV-input")
 
 // Weather API
 searchBtn.addEventListener('click', function(e) {
     e.preventDefault()
-    var latitude = "38.5816"
-    var longitude = "121.4944"
     var exclusions = "minutely, hourly, daily, alerts"
-    
-    fetch("https://api.openweathermap.org/data/2.5/onecall?lat="+latitude+"&lon="+longitude+"&exclude="+exclusions+"&appid=b265093aa7a118e11c4591d956102e2c")
+    var cityInput = document.getElementById("city-input")
+    var form = document.getElementById("form")
+
+    var btn = document.createElement("button")
+    btn.textContent = cityInput.value
+    form.appendChild(btn)
+    btn.addEventListener('click', function(e) {
+        e.preventDefault()
+        cityInput.value = this.textContent
+    })
+
+    fetch("https://api.openweathermap.org/data/2.5/weather?q=" + cityInput.value + "&appid=b265093aa7a118e11c4591d956102e2c&units=imperial")
     .then((res) => res.json())
     .then((data) => {
         console.log(data)
+        //temp, wind, humidity, city name, date
+        currentCity.textContent = data.name 
+        temp.textContent = "Temp: " + data.main.temp + degree
+        wind.textContent = "Wind Speed: " + data.wind.speed + " mph"
+        humidity.textContent = "Humidity: " + data.main.humidity + "%"
+        
+
+        fetch("https://api.openweathermap.org/data/2.5/uvi?lat="+ data.coord.lat +"&lon="+ data.coord.lon +"&exclude="+exclusions+"&appid=b265093aa7a118e11c4591d956102e2c")
+        .then((res) => res.json())
+        .then((data) => {
+            console.log(data)
+        //UV index
+        })
+        fetch("https://api.openweathermap.org/data/2.5/forecast?lat="+ data.coord.lat +"&lon="+ data.coord.lon +"&exclude="+exclusions+"&appid=b265093aa7a118e11c4591d956102e2c")
+        .then((res) => res.json())
+        .then((data) => {
+            console.log(data)
+        //5-day forecast (temp, wind, humidity), dates
+        })
     })
+
+
 })
     
