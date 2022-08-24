@@ -1,6 +1,7 @@
 // GLOBAL VARIABLES
 var currentCity = document.getElementById("current-city")
 var searchBtn = document.getElementById("search-btn")
+
 var degree = "°F"
 var mph = " mph"
 var percent = "%"
@@ -9,6 +10,7 @@ var temp = document.getElementById("temp-input")
 var wind = document.getElementById("wind-input")
 var humidity = document.getElementById("humidity-input")
 var UV = document.getElementById("UV-input")
+var curWeathIcon = document.querySelector('#curWeathIcon')
 var day1 = document.getElementById("day-1")
 var day2 = document.getElementById("day-2")
 var day3 = document.getElementById("day-3")
@@ -20,19 +22,19 @@ var wind1 = document.getElementById("day-1-wind")
 var humidity1 = document.getElementById("day-1-humidity")
 
 var temp2 = document.getElementById("day-2-temp")
-var wind2 = document.getElementById("day-2-temp")
+var wind2 = document.getElementById("day-2-wind")
 var humidity2 = document.getElementById("day-2-humidity")
 
 var temp3 = document.getElementById("day-3-temp")
-var wind3 = document.getElementById("day-3-temp")
+var wind3 = document.getElementById("day-3-wind")
 var humidity3 = document.getElementById("day-3-humidity")
 
 var temp4 = document.getElementById("day-4-temp")
-var wind4 = document.getElementById("day-4-temp")
+var wind4 = document.getElementById("day-4-wind")
 var humidity4 = document.getElementById("day-4-humidity")
 
 var temp5 = document.getElementById("day-5-temp")
-var wind5 = document.getElementById("day-5-temp")
+var wind5 = document.getElementById("day-5-wind")
 var humidity5 = document.getElementById("day-5-humidity")
 
 // Weather API
@@ -40,25 +42,39 @@ searchBtn.addEventListener('click', function(e) {
     e.preventDefault()
     var exclusions = "minutely, hourly, daily, alerts"
     var cityInput = document.getElementById("city-input")
-    var form = document.getElementById("form")
+    var ul = document.getElementById("ul")
 
-    var btn = document.createElement("button")
-    var li = document.createElement("li")
-    btn.textContent = cityInput.value
-    form.appendChild(li)
-    li.appendChild(btn)
-    btn.addEventListener('click', function(e) {
-        e.preventDefault()
-        cityInput.value = this.textContent
-    })
+    var searched = false
+    var historyBtns = document.querySelectorAll(".history-btn")
+    if (historyBtns) {
+        for (let i = 0; i < historyBtns.length; i++) {
+           if (historyBtns[i].textContent == cityInput.value) {
+            searched = true
+           } 
+        }
+    }
+    if (!searched) {
+        var btn = document.createElement("button")
+        btn.classList.add("history-btn")
+        var li = document.createElement("li")
+        btn.textContent = cityInput.value
+        ul.appendChild(li)
+        li.appendChild(btn)
+        btn.addEventListener('click', function(e) {
+            e.preventDefault()
+            cityInput.value = this.textContent
+        })
+    }
+
 
     fetch("https://api.openweathermap.org/data/2.5/weather?q=" + cityInput.value + "&appid=b265093aa7a118e11c4591d956102e2c&units=imperial")
     .then((res) => res.json())
     .then((data) => {
         console.log(data)
         //temp, wind, humidity, city name for chosen city
-        day.textContent = moment().format('l')
-        currentCity.textContent = data.name 
+        day.textContent = data.name + ' (' + moment().format('l')+') ' 
+        //            Change to https for deployment
+         curWeathIcon.src = "http://openweathermap.org/img/wn/"+ data.weather[0].icon +"@2x.png"
         temp.textContent = "Temp: " + data.main.temp + degree
         wind.textContent = "Wind Speed: " + data.wind.speed + mph
         humidity.textContent = "Humidity: " + data.main.humidity + percent
