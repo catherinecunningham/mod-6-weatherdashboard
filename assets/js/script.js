@@ -107,27 +107,27 @@ searchBtn.addEventListener('click', function(e) {
         //5-day forecast (temp, wind, humidity), dates
         //5-days needed in array: 3, 11, 19, 27, 35
             day1.textContent = moment().add("days", 1).format('l')
-            temp1.textContent = "Temp: " + data.list[3].main.temp + degree
+            temp1.textContent = "Temp: " + data.list[7].main.temp_max + degree
             wind1.textContent = "Wind Speed: " + data.list[3].wind.speed + mph
             humidity1.textContent = "Humidity: " + data.list[3].main.humidity + percent
 
             day2.textContent = moment().add("days", 2).format('l')
-            temp2.textContent = "Temp: " + data.list[11].main.temp + degree
+            temp2.textContent = "Temp: " + data.list[15].main.temp_max + degree
             wind2.textContent = "Wind Speed: " + data.list[11].wind.speed + mph
             humidity2.textContent = "Humidity: " + data.list[11].main.humidity + percent
 
             day3.textContent = moment().add("days", 3).format('l')
-            temp3.textContent = "Temp: " + data.list[19].main.temp + degree
+            temp3.textContent = "Temp: " + data.list[23].main.temp_max + degree
             wind3.textContent = "Wind Speed: " + data.list[19].wind.speed + mph
             humidity3.textContent = "Humidity: " + data.list[19].main.humidity + percent
 
             day4.textContent = moment().add("days", 4).format('l')
-            temp4.textContent = "Temp: " + data.list[27].main.temp + degree
+            temp4.textContent = "Temp: " + data.list[31].main.temp_max + degree
             wind4.textContent = "Wind Speed: " + data.list[27].wind.speed + mph
             humidity4.textContent = "Humidity: " + data.list[27].main.humidity + percent
 
             day5.textContent = moment().add("days", 5).format('l')
-            temp5.textContent = "Temp: " + data.list[35].main.temp + degree
+            temp5.textContent = "Temp: " + data.list[39].main.temp_max + degree
             wind5.textContent = "Wind Speed: " + data.list[35].wind.speed + mph
             humidity5.textContent = "Humidity: " + data.list[35].main.humidity + percent
 
