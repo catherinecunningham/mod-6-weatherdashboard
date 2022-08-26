@@ -42,8 +42,23 @@ var temp5 = document.getElementById("day-5-temp")
 var wind5 = document.getElementById("day-5-wind")
 var humidity5 = document.getElementById("day-5-humidity")
 
+//UV Index Color Functions
+function LowUV() {
+    UV.style.backgroundColor = "#00FF00"
+}
+function ModerateUV() {
+    UV.style.backgroundColor = "#FFFF00"
+}
+function HighUV() {
+    UV.style.backgroundColor = "#FFA500"
+}
+function VeryHighUV() {
+    UV.style.backgroundColor = "#FF0000"
+}
+
+
 // Weather API
-searchBtn.addEventListener('click', function(e) {
+searchBtn.addEventListener('click', function (e) {
     e.preventDefault()
     var exclusions = "minutely, hourly, daily, alerts"
     var cityInput = document.getElementById("city-input")
@@ -54,9 +69,9 @@ searchBtn.addEventListener('click', function(e) {
     var historyBtns = document.querySelectorAll(".history-btn")
     if (historyBtns) {
         for (let i = 0; i < historyBtns.length; i++) {
-           if (historyBtns[i].textContent == cityInput.value) {
-            searched = true
-           } 
+            if (historyBtns[i].textContent == cityInput.value) {
+                searched = true
+            }
         }
     }
     if (!searched) {
@@ -66,74 +81,92 @@ searchBtn.addEventListener('click', function(e) {
         btn.textContent = cityInput.value
         ul.appendChild(li)
         li.appendChild(btn)
-        btn.addEventListener('click', function(e) {
+        btn.addEventListener('click', function (e) {
             e.preventDefault()
             cityInput.value = this.textContent
         })
     }
 
     fetch("https://api.openweathermap.org/data/2.5/weather?q=" + cityInput.value + "&appid=b265093aa7a118e11c4591d956102e2c&units=imperial")
-    .then((res) => res.json())
-    .then((data) => {
-        console.log(data)
-        day.textContent = data.name + ' (' + moment().format('l')+') ' 
-
-        //Current weather and forecast icons
-        //            Change to https for deployment
-        curWeathIcon.src = "http://openweathermap.org/img/wn/"+ data.weather[0].icon +"@2x.png"
-        
-        icon1.src = "http://openweathermap.org/img/wn/" + data.weather[0].icon + "@2x.png"
-        icon2.src = "http://openweathermap.org/img/wn/" + data.weather[0].icon + "@2x.png"
-        icon3.src = "http://openweathermap.org/img/wn/" + data.weather[0].icon + "@2x.png"
-        icon4.src = "http://openweathermap.org/img/wn/" + data.weather[0].icon + "@2x.png"
-        icon5.src = "http://openweathermap.org/img/wn/" + data.weather[0].icon + "@2x.png"
-        //temp, wind, humidity, city name for chosen city
-        temp.textContent = "Temp: " + data.main.temp + degree
-        wind.textContent = "Wind Speed: " + data.wind.speed + mph
-        humidity.textContent = "Humidity: " + data.main.humidity + percent
-
-        fetch("https://api.openweathermap.org/data/2.5/uvi?lat="+ data.coord.lat +"&lon="+ data.coord.lon +"&exclude="+exclusions+"&appid=b265093aa7a118e11c4591d956102e2c")
         .then((res) => res.json())
         .then((data) => {
             console.log(data)
-        //UV index for chosen city
-        UV.textContent = "UV Index: " + data.value
+            day.textContent = data.name + ' (' + moment().format('l') + ') '
+
+            //Current weather and forecast icons
+            //            Change to https for deployment
+            curWeathIcon.src = "http://openweathermap.org/img/wn/" + data.weather[0].icon + "@2x.png"
+
+            icon1.src = "http://openweathermap.org/img/wn/" + data.weather[0].icon + "@2x.png"
+            icon2.src = "http://openweathermap.org/img/wn/" + data.weather[0].icon + "@2x.png"
+            icon3.src = "http://openweathermap.org/img/wn/" + data.weather[0].icon + "@2x.png"
+            icon4.src = "http://openweathermap.org/img/wn/" + data.weather[0].icon + "@2x.png"
+            icon5.src = "http://openweathermap.org/img/wn/" + data.weather[0].icon + "@2x.png"
+
+            //temp, wind, humidity, city name for chosen city
+            temp.textContent = "Temp: " + data.main.temp + degree
+            wind.textContent = "Wind Speed: " + data.wind.speed + mph
+            humidity.textContent = "Humidity: " + data.main.humidity + percent
+
+            fetch("https://api.openweathermap.org/data/2.5/uvi?lat=" + data.coord.lat + "&lon=" + data.coord.lon + "&exclude=" + exclusions + "&appid=b265093aa7a118e11c4591d956102e2c")
+                .then((res) => res.json())
+                .then((data) => {
+                    console.log(data)
+
+                    //UV index for chosen city
+                    UV.textContent = "UV Index: " + data.value
+                    UV.value = data.value
+
+                    if (UV.value <= 2) {
+    
+                        console.log("UV",UV)
+                        console.log("low",UV.value)
+                        LowUV()
+                    } else if (UV.value >= 3 && UV.value <= 5) {console.log("mod",UV.value)
+                        ModerateUV()
+                    } else if (UV.value >= 6 && UV.value <= 7) {console.log("high",UV.value)
+                        HighUV()
+                    } else {console.log("very high",UV.value)
+                        VeryHighUV()
+                    }
+                    
+                })
+
+            fetch("https://api.openweathermap.org/data/2.5/forecast?lat=" + data.coord.lat + "&lon=" + data.coord.lon + "&exclude=" + exclusions + "&appid=b265093aa7a118e11c4591d956102e2c&units=imperial")
+                .then((res) => res.json())
+                .then((data) => {
+                    console.log(data)
+                    //5-day forecast (temp, wind, humidity), dates
+                    //5-days needed in array: 3, 11, 19, 27, 35
+                    day1.textContent = moment().add("days", 1).format('l')
+                    temp1.textContent = "Temp: " + data.list[7].main.temp_max + degree
+                    wind1.textContent = "Wind Speed: " + data.list[3].wind.speed + mph
+                    humidity1.textContent = "Humidity: " + data.list[3].main.humidity + percent
+
+                    day2.textContent = moment().add("days", 2).format('l')
+                    temp2.textContent = "Temp: " + data.list[15].main.temp_max + degree
+                    wind2.textContent = "Wind Speed: " + data.list[11].wind.speed + mph
+                    humidity2.textContent = "Humidity: " + data.list[11].main.humidity + percent
+
+                    day3.textContent = moment().add("days", 3).format('l')
+                    temp3.textContent = "Temp: " + data.list[23].main.temp_max + degree
+                    wind3.textContent = "Wind Speed: " + data.list[19].wind.speed + mph
+                    humidity3.textContent = "Humidity: " + data.list[19].main.humidity + percent
+
+                    day4.textContent = moment().add("days", 4).format('l')
+                    temp4.textContent = "Temp: " + data.list[31].main.temp_max + degree
+                    wind4.textContent = "Wind Speed: " + data.list[27].wind.speed + mph
+                    humidity4.textContent = "Humidity: " + data.list[27].main.humidity + percent
+
+                    day5.textContent = moment().add("days", 5).format('l')
+                    temp5.textContent = "Temp: " + data.list[39].main.temp_max + degree
+                    wind5.textContent = "Wind Speed: " + data.list[35].wind.speed + mph
+                    humidity5.textContent = "Humidity: " + data.list[35].main.humidity + percent
+
+                })
         })
 
-        fetch("https://api.openweathermap.org/data/2.5/forecast?lat="+ data.coord.lat +"&lon="+ data.coord.lon +"&exclude="+exclusions+"&appid=b265093aa7a118e11c4591d956102e2c&units=imperial")
-        .then((res) => res.json())
-        .then((data) => {
-            console.log(data)
-        //5-day forecast (temp, wind, humidity), dates
-        //5-days needed in array: 3, 11, 19, 27, 35
-            day1.textContent = moment().add("days", 1).format('l')
-            temp1.textContent = "Temp: " + data.list[7].main.temp_max + degree
-            wind1.textContent = "Wind Speed: " + data.list[3].wind.speed + mph
-            humidity1.textContent = "Humidity: " + data.list[3].main.humidity + percent
-
-            day2.textContent = moment().add("days", 2).format('l')
-            temp2.textContent = "Temp: " + data.list[15].main.temp_max + degree
-            wind2.textContent = "Wind Speed: " + data.list[11].wind.speed + mph
-            humidity2.textContent = "Humidity: " + data.list[11].main.humidity + percent
-
-            day3.textContent = moment().add("days", 3).format('l')
-            temp3.textContent = "Temp: " + data.list[23].main.temp_max + degree
-            wind3.textContent = "Wind Speed: " + data.list[19].wind.speed + mph
-            humidity3.textContent = "Humidity: " + data.list[19].main.humidity + percent
-
-            day4.textContent = moment().add("days", 4).format('l')
-            temp4.textContent = "Temp: " + data.list[31].main.temp_max + degree
-            wind4.textContent = "Wind Speed: " + data.list[27].wind.speed + mph
-            humidity4.textContent = "Humidity: " + data.list[27].main.humidity + percent
-
-            day5.textContent = moment().add("days", 5).format('l')
-            temp5.textContent = "Temp: " + data.list[39].main.temp_max + degree
-            wind5.textContent = "Wind Speed: " + data.list[35].wind.speed + mph
-            humidity5.textContent = "Humidity: " + data.list[35].main.humidity + percent
-
-        })
-    })
-
+    
 
 })
-    
+
