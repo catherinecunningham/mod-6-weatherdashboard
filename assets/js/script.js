@@ -17,22 +17,27 @@ var day3 = document.getElementById("day-3")
 var day4 = document.getElementById("day-4")
 var day5 = document.getElementById("day-5")
 
+var icon1 = document.querySelector('#day1WeathIcon')
 var temp1 = document.getElementById("day-1-temp")
 var wind1 = document.getElementById("day-1-wind")
 var humidity1 = document.getElementById("day-1-humidity")
 
+var icon2 = document.querySelector('#day2WeathIcon')
 var temp2 = document.getElementById("day-2-temp")
 var wind2 = document.getElementById("day-2-wind")
 var humidity2 = document.getElementById("day-2-humidity")
 
+var icon3 = document.querySelector('#day3WeathIcon')
 var temp3 = document.getElementById("day-3-temp")
 var wind3 = document.getElementById("day-3-wind")
 var humidity3 = document.getElementById("day-3-humidity")
 
+var icon4 = document.querySelector('#day4WeathIcon')
 var temp4 = document.getElementById("day-4-temp")
 var wind4 = document.getElementById("day-4-wind")
 var humidity4 = document.getElementById("day-4-humidity")
 
+var icon5 = document.querySelector('#day5WeathIcon')
 var temp5 = document.getElementById("day-5-temp")
 var wind5 = document.getElementById("day-5-wind")
 var humidity5 = document.getElementById("day-5-humidity")
@@ -44,6 +49,7 @@ searchBtn.addEventListener('click', function(e) {
     var cityInput = document.getElementById("city-input")
     var ul = document.getElementById("ul")
 
+    // prevent search history from repeating searched cities
     var searched = false
     var historyBtns = document.querySelectorAll(".history-btn")
     if (historyBtns) {
@@ -66,15 +72,22 @@ searchBtn.addEventListener('click', function(e) {
         })
     }
 
-
     fetch("https://api.openweathermap.org/data/2.5/weather?q=" + cityInput.value + "&appid=b265093aa7a118e11c4591d956102e2c&units=imperial")
     .then((res) => res.json())
     .then((data) => {
         console.log(data)
-        //temp, wind, humidity, city name for chosen city
         day.textContent = data.name + ' (' + moment().format('l')+') ' 
+
+        //Current weather and forecast icons
         //            Change to https for deployment
-         curWeathIcon.src = "http://openweathermap.org/img/wn/"+ data.weather[0].icon +"@2x.png"
+        curWeathIcon.src = "http://openweathermap.org/img/wn/"+ data.weather[0].icon +"@2x.png"
+        
+        icon1.src = "http://openweathermap.org/img/wn/" + data.weather[0].icon + "@2x.png"
+        icon2.src = "http://openweathermap.org/img/wn/" + data.weather[0].icon + "@2x.png"
+        icon3.src = "http://openweathermap.org/img/wn/" + data.weather[0].icon + "@2x.png"
+        icon4.src = "http://openweathermap.org/img/wn/" + data.weather[0].icon + "@2x.png"
+        icon5.src = "http://openweathermap.org/img/wn/" + data.weather[0].icon + "@2x.png"
+        //temp, wind, humidity, city name for chosen city
         temp.textContent = "Temp: " + data.main.temp + degree
         wind.textContent = "Wind Speed: " + data.wind.speed + mph
         humidity.textContent = "Humidity: " + data.main.humidity + percent
@@ -93,7 +106,6 @@ searchBtn.addEventListener('click', function(e) {
             console.log(data)
         //5-day forecast (temp, wind, humidity), dates
         //5-days needed in array: 3, 11, 19, 27, 35
-
             day1.textContent = moment().add("days", 1).format('l')
             temp1.textContent = "Temp: " + data.list[3].main.temp + degree
             wind1.textContent = "Wind Speed: " + data.list[3].wind.speed + mph
