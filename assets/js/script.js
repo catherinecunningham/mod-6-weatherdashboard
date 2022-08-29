@@ -58,14 +58,14 @@ function VeryHighUV() {
     UV.style.backgroundColor = "#FF0000"
 }
 
-// Weather API
+// search button function
 searchBtn.addEventListener('click', function (e) {
     e.preventDefault()
     var exclusions = "minutely, hourly, daily, alerts"
     var cityInput = document.getElementById("city-input")
     var ul = document.getElementById("ul")
 
-    // prevent search history from repeating searched cities
+    // prevent search history from repeating searched cities in multiple buttons
     var searched = false
     var historyBtns = document.querySelectorAll(".history-btn")
     if (historyBtns) {
@@ -88,6 +88,7 @@ searchBtn.addEventListener('click', function (e) {
         })
     }
 
+    // first API call
     fetch("https://api.openweathermap.org/data/2.5/weather?q=" + cityInput.value + "&appid=b265093aa7a118e11c4591d956102e2c&units=imperial")
         .then((res) => res.json())
         .then((data) => {
@@ -95,7 +96,6 @@ searchBtn.addEventListener('click', function (e) {
             day.textContent = data.name + ' (' + moment().format('l') + ') '
 
             //Current weather and forecast icons
-            //            Change to https for deployment
             curWeathIcon.src = "https://openweathermap.org/img/wn/" + data.weather[0].icon + "@2x.png"
 
             icon1.src = "https://openweathermap.org/img/wn/" + data.weather[0].icon + "@2x.png"
@@ -109,6 +109,7 @@ searchBtn.addEventListener('click', function (e) {
             wind.textContent = "Wind Speed: " + data.wind.speed + mph
             humidity.textContent = "Humidity: " + data.main.humidity + percent
 
+            // second API call
             fetch("https://api.openweathermap.org/data/2.5/uvi?lat=" + data.coord.lat + "&lon=" + data.coord.lon + "&exclude=" + exclusions + "&appid=b265093aa7a118e11c4591d956102e2c")
                 .then((res) => res.json())
                 .then((data) => {
@@ -135,7 +136,7 @@ searchBtn.addEventListener('click', function (e) {
                     }
                 })
 
-            //5-day forecast (temp, wind, humidity), dates
+            //5-day forecast (temp, wind, humidity), dates (3rd API call)
             fetch("https://api.openweathermap.org/data/2.5/forecast?lat=" + data.coord.lat + "&lon=" + data.coord.lon + "&exclude=" + exclusions + "&appid=b265093aa7a118e11c4591d956102e2c&units=imperial")
                 .then((res) => res.json())
                 .then((data) => {
