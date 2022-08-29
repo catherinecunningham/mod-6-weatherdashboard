@@ -96,13 +96,13 @@ searchBtn.addEventListener('click', function (e) {
 
             //Current weather and forecast icons
             //            Change to https for deployment
-            curWeathIcon.src = "http://openweathermap.org/img/wn/" + data.weather[0].icon + "@2x.png"
+            curWeathIcon.src = "https://openweathermap.org/img/wn/" + data.weather[0].icon + "@2x.png"
 
-            icon1.src = "http://openweathermap.org/img/wn/" + data.weather[0].icon + "@2x.png"
-            icon2.src = "http://openweathermap.org/img/wn/" + data.weather[0].icon + "@2x.png"
-            icon3.src = "http://openweathermap.org/img/wn/" + data.weather[0].icon + "@2x.png"
-            icon4.src = "http://openweathermap.org/img/wn/" + data.weather[0].icon + "@2x.png"
-            icon5.src = "http://openweathermap.org/img/wn/" + data.weather[0].icon + "@2x.png"
+            icon1.src = "https://openweathermap.org/img/wn/" + data.weather[0].icon + "@2x.png"
+            icon2.src = "https://openweathermap.org/img/wn/" + data.weather[0].icon + "@2x.png"
+            icon3.src = "https://openweathermap.org/img/wn/" + data.weather[0].icon + "@2x.png"
+            icon4.src = "https://openweathermap.org/img/wn/" + data.weather[0].icon + "@2x.png"
+            icon5.src = "https://openweathermap.org/img/wn/" + data.weather[0].icon + "@2x.png"
 
             //temp, wind, humidity, city name for chosen city
             temp.textContent = "Temp: " + data.main.temp + degree
