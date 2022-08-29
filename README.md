@@ -6,6 +6,6 @@ This page makes use of the OneCall Weather API, which has undergone recent chang
 
 There appears to be an issue with the accuracy of the UV index data, and in the future I would like to find more accurate data to fill this field on the page so that it can be more helpful to a potential user.  I would also like to rework the data available for the 5-day forecast to be more representative of true high temperatures for each upcoming day.
 
-The deployed page can be found here:
+The deployed page can be found here: https://catherinecunningham.github.io/mod-6-weatherdashboard/ 
 
 ![image](https://user-images.githubusercontent.com/107148691/187116488-1d4c3e4e-794b-4403-9504-0e1e5856e108.png)
