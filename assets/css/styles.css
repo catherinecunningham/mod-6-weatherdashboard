@@ -6,6 +6,9 @@ ul {
 /* Main Title Styles */
 #main-title {
     background-image: linear-gradient(to bottom right, #0066ff, #003366);
+}
+
+#main-title-text {
     color: white;
 }
 
@@ -14,5 +17,39 @@ ul {
     border-radius: 15px;
     background-color: #0066ff;
     color: white;
+    margin-top: 5px;
 }
 
+/* Chosen City Styles */
+#chosen-city {
+    border-style: solid;
+    border-width: 1px;
+    margin-top: 3px;
+    padding: 5px;
+}
+
+#UV-input {
+    border-radius: 15px;
+}
+
+/* 5-Day Forecast Styles */
+.day-card {
+    background-color: #003366;
+    margin: 5px;
+    padding: 5px;
+}
+
+.date-title {
+    color: white;
+    font-size: 20px;
+}
+
+.icon {
+    justify-content: center;
+}
+
+.day-data {
+    color: white;
+    justify-content: center;
+    font-size: 10px;
+}
